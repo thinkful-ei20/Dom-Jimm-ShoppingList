@@ -29,8 +29,16 @@ const renderShoppingList = () => {
 };
 
 // USER STORY 2: User should be able to add item to shopping list
-const handleAddingItems = () => console.log('`handleAddingItems` works like a charm');
-
+const handleAddingItems = () => {
+  $('#js-shopping-list-form').submit(function(event){
+    event.preventDefault();
+    const newItem = $('.js-shopping-list-entry').val();
+    STORE.push({name: newItem, checked: false});
+    console.log(newItem);
+    renderShoppingList();
+  });
+  console.log('`handleAddingItems` works like a charm');
+};
 // USER STORY 3: User should be able to check items on the list
 const handleCheckingItems = () => console.log('`handleCheckingItems` works like a charm');
 
