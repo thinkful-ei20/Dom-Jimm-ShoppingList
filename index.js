@@ -44,13 +44,13 @@ const handleAddingItems = () => {
 // Get index of checked or deleted item
 const getIndexOfItem = (event) => $(event.target).closest('.js-item-index-element').data('itemIndex');
 // Toggle checked item from the store
-const toggleCheckItem = (index) => { STORE[index].checked = !STORE[index].checked; };
+const toggleCheckItem = (database, index) => { database[index].checked = !database[index].checked; };
 // Delete an item from the store
-const deleteItem = (index) => { STORE.splice(index, 1); };
+const deleteItem = (database,index) => { database.splice(index, 1); };
 // Listen for clicks on check or delete button
 const checkOrDeleteItem = (typeOfButton, callbackFn) => {
   $('.js-shopping-list').on('click', typeOfButton, (event) => {
-    callbackFn(getIndexOfItem(event));
+    callbackFn(STORE, getIndexOfItem(event));
     renderShoppingList();
   });
 };
