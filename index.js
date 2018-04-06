@@ -6,8 +6,27 @@ const STORE = [
   {name: 'milk', checked: true},
   {name: 'bread', checked: false}
 ];
-
-const renderShoppingList = () => console.log('`renderShoppingList` works like a charm');
+// Creates an html item
+const createHTMLItem = (item, index) => `
+  <li class="js-item-index-element" data-item-index="${index}">
+    <span class="shopping-item js-shopping-item ${item.checked ? 'shopping-item__checked' : ''}">${item.name}</span>
+      <div class="shopping-item-controls">
+        <button class="shopping-item-toggle js-item-toggle">
+          <span class="button-label">check</span>
+        </button>
+        <button class="shopping-item-delete js-item-delete">
+          <span class="button-label">delete</span>
+        </button>
+      </div>
+  </li>
+`;
+// Creates an html item for each item in the STORE
+const createHTMLList = (database) => database.map((item, index) => createHTMLItem(item, index)).join('');
+// Renders shopping list to the DOM
+const renderShoppingList = () => {
+  console.log('`renderShoppingList` works like a charm');
+  $('.js-shopping-list').html(createHTMLList(STORE));
+};
 
 // USER STORY 2: User should be able to add item to shopping list
 const handleAddingItems = () => console.log('`handleAddingItems` works like a charm');
