@@ -39,7 +39,18 @@ const handleAddingItems = () => {
   });
   console.log('`handleAddingItems` works like a charm');
 };
-// USER STORY 3: User should be able to check items on the list
+// USER STORY 3: User should be able to check items on the list &
+// USER STORY 4: User should be able to delete items from the list
+// Get index of checked or deleted item
+const getIndexOfItem = (event) => $(event.target).closest('.js-item-index-element').data('itemIndex');
+// 
+const checkOrDeleteItem = (typeOfButton) => {
+  $('.shopping-item-controls').on('click', typeOfButton, (event) => {
+    let index = (getIndexOfItem(event));
+    STORE[index].checked = !STORE[index].checked;
+    renderShoppingList();
+  });
+};
 const handleCheckingItems = () => console.log('`handleCheckingItems` works like a charm');
 
 // USER STORY 4: User should be able to delete items from the list
@@ -51,6 +62,7 @@ const handleShoppingList = () => {
   handleAddingItems();
   handleCheckingItems();
   handleDeletingItems();
+  checkOrDeleteItem('.js-item-toggle');
 };
 
 // call handle when DOM is ready
