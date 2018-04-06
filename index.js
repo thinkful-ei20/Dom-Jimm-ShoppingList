@@ -43,18 +43,21 @@ const handleAddingItems = () => {
 // USER STORY 4: User should be able to delete items from the list
 // Get index of checked or deleted item
 const getIndexOfItem = (event) => $(event.target).closest('.js-item-index-element').data('itemIndex');
-// 
-const checkOrDeleteItem = (typeOfButton) => {
-  $('.shopping-item-controls').on('click', typeOfButton, (event) => {
-    let index = (getIndexOfItem(event));
-    STORE[index].checked = !STORE[index].checked;
+// Toggle checked item from the store
+const toggleCheckItem = (index) => { STORE[index].checked = !STORE[index].checked; };
+// Delete an item from the store
+const deleteItem = (index) => { STORE.splice(index, 1); };
+// Listen for clicks on check or delete button
+const checkOrDeleteItem = (typeOfButton, callbackFn) => {
+  $('.js-shopping-list').on('click', typeOfButton, (event) => {
+    callbackFn(getIndexOfItem(event));
     renderShoppingList();
   });
 };
-const handleCheckingItems = () => console.log('`handleCheckingItems` works like a charm');
-
-// USER STORY 4: User should be able to delete items from the list
-const handleDeletingItems = () => console.log('`handleDeletingItems` works like a charm');
+// If user clicks check, toggles check item
+const handleCheckingItems = () => checkOrDeleteItem('.js-item-toggle', toggleCheckItem);
+// If user clicks delete, deletes item
+const handleDeletingItems = () => checkOrDeleteItem('.js-item-delete', deleteItem);
 
 // handle shopping list
 const handleShoppingList = () => {
@@ -62,7 +65,6 @@ const handleShoppingList = () => {
   handleAddingItems();
   handleCheckingItems();
   handleDeletingItems();
-  checkOrDeleteItem('.js-item-toggle');
 };
 
 // call handle when DOM is ready
